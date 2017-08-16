@@ -22,7 +22,7 @@ A modern Web Application is made up of three main components:
 
 ### Description
 
-To make project well structered we will keep them separate.
+To make project well structured we will keep those components separated.
 A popular and productive technology stack today is a combination of React/Redux for the front-end, Python/Flask for the Backend, 
  and SQLAlchemy as the Python Object Relation Map (ORM) to communicate with your SQL database.
 
@@ -64,5 +64,3 @@ $ npm start
 Open your browser to ``` http://localhost:3000 ```
 
 Enjoy! If you have any questions please send me a message to Nikita.Danilov92@gmail.com
-
-
