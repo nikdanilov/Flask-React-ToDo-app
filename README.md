@@ -39,7 +39,7 @@ $ cd static
 $ npm install
 ```
 
-### Install a database
+### Install Database
 
 - Install the free community edition of [MySQL](https://dev.mysql.com/downloads/mysql/) and [MySQL Workbench](https://www.mysql.com/products/workbench/)
 - Create Scheme mydatabase
