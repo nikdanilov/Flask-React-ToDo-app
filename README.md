@@ -1,6 +1,6 @@
 # Time Managment Assistant #
 
-Time Managment application based on Python/Flask Backend JWT and a Javascript/React/Redux Front-End with Material UI.
+To-Do application based on Python/Flask Backend JWT and a Javascript/React/Redux Front-End with Material UI.
 
 * Python 3.x
 * Pytest
@@ -43,7 +43,7 @@ $ npm install
 
 - Install the free community edition of [MySQL](https://dev.mysql.com/downloads/mysql/) and [MySQL Workbench](https://www.mysql.com/products/workbench/)
 - Create Scheme mydatabase
-- Add configuration string to file config.py: ```sh mysql+mysqlconnector://root:admin@localhost/mydatabase ```
+- Add configuration string to file config.py: ``` mysql+mysqlconnector://root:admin@localhost/mydatabase ```
 - Create tables ```sh python manage.py create_db ```
 
 ### Run Back-End
@@ -61,8 +61,8 @@ $ npm start
 
 ### Run
 
-Open your browser to ```sh http://localhost:3000 ```
+Open your browser to ``` http://localhost:3000 ```
 
-10. Enjoy! If you have any questions please send me a message to Nikita.Danilov92@gmail.com
+Enjoy! If you have any questions please send me a message to Nikita.Danilov92@gmail.com
 
 
