@@ -42,9 +42,9 @@ $ npm install
 ### Install Database
 
 - Install the free community edition of [MySQL](https://dev.mysql.com/downloads/mysql/) and [MySQL Workbench](https://www.mysql.com/products/workbench/)
-- Create Scheme mydatabase
+- Create Scheme "mydatabase"
 - Add configuration string to file config.py: ``` mysql+mysqlconnector://root:admin@localhost/mydatabase ```
-- Create tables ```sh python manage.py create_db ```
+- Create tables ``` python manage.py create_db ```
 
 ### Run Back-End
 
