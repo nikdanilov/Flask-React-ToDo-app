@@ -9,15 +9,11 @@ import {
 	
     REGISTER_USER_FAILURE,
     REGISTER_USER_REQUEST,
-    REGISTER_USER_SUCCESS,
-	
-	CREATE_TASK_SUCCESS,
-	CREATE_TASK_FAILURE,
-	CREATE_TASK_REQUEST
+    REGISTER_USER_SUCCESS
 } from '../constants/index';
 
 import { parseJSON } from '../utils/misc';
-import { get_token, create_user, create_task } from '../utils/http_functions';
+import { get_token, create_user } from '../utils/http_functions';
 
 
 export function loginUserSuccess(token) {
@@ -44,28 +40,6 @@ export function loginUserFailure(error) {
 export function loginUserRequest() {
     return {
         type: LOGIN_USER_REQUEST,
-    };
-}
-
-export function createTaskSuccess(token) {
-    return {
-        type: CREATE_TASK_SUCCESS
-    };
-}
-
-export function createTaskFailure(error) {
-    return {
-        type: CREATE_TASK_FAILURE,
-        payload: {
-            status: error.response.status,
-            statusText: error.response.statusText,
-        },
-    };
-}
-
-export function createTaskRequest() {
-    return {
-        type: CREATE_TASK_REQUEST,
     };
 }
 

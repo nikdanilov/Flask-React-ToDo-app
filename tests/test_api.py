@@ -1,102 +1,73 @@
-from testing_config import BaseTestConfig
-from application.models import User
-import json
-from application.utils import auth
+import requests;
+import json;
+
+class TestAPI():
+  def __init__(self):
+    self.host = "http://127.0.0.1:3000"
+    self.token = None
+    self.user = None
+
+    self.setUser("test@gmail.com", "111111")
+    print("Application initialized.")
 
 
-class TestAPI(BaseTestConfig):
-    default_user = {
-        "email": "one@gmail.com",
-        "password": "something1"
+  def setUser(self, email, password):
+    self.user = {
+      "email": email,
+      "password": password
     }
+    
+    print("Testing user:" + self.user['email'])
 
-    default_user2 = {
-        "email": "two@gmail.com",
-        "password": "something1"
-    }
+  def getUser(self):
+    r = requests.get(self.host + "/api/username",
+      headers={'Authorization': self.token}
+    )
+    print(r.text)
 
-    # def test_get_spa_from_index(self):
-    #     result = self.app.get("/")
-    #     self.assertIn('<html>', result.data.decode("utf-8"))
+  def getUsersTasks(self):
+    r = requests.get(self.host + "/api/users_tasks",
+      headers={'Authorization': self.token}
+    )
+    print(r.text)
 
-    # def test_create_new_user(self):
-    #     self.assertIsNone(User.query.filter_by(
-    #             email=self.default_user["email"]
-    #     ).first())
+  def getToken(self):
+      r = requests.post(
+              self.host + "/api/get_token",
+              json=self.user
+      )
 
-    #     res = self.app.post(
-    #             "/api/create_user",
-    #             data=json.dumps(self.default_user),
-    #             content_type='application/json'
-    #     )
-    #     self.assertEqual(res.status_code, 200)
-    #     self.assertTrue(json.loads(res.data.decode("utf-8"))["token"])
-    #     self.assertEqual(User.query.filter_by(email=self.default_user["email"]).first().email, self.default_user["email"])
+      token = r.json()["token"]
+      self.token = token
 
-    #     res2 = self.app.post(
-    #             "/api/create_user",
-    #             data=json.dumps(self.default_user),
-    #             content_type='application/json'
-    #     )
+      print('Authorization token received.')
+      print('Token:' + token)
 
-    #     self.assertEqual(res2.status_code, 409)
+  def createTask(self, data={'name': 'New Task','category': 'New Category'}):
+    r = requests.post(self.host + "/api/create_task", 
+      json=data,
+      headers={'Authorization': self.token}
+    )
+    print(r.text)
 
-    def test_create_new_task(self):
+  def stopTask(self, id):
+    r = requests.post(self.host + "/api/stop_task", 
+      json={'id': id},
+      headers={'Authorization': self.token}
+    )
+    print(r.text)
 
-        res = self.app.post(
-                "/api/create_task",
-                data=json.dumps({"name":"Gym", "category":"Health"}),
-                content_type='application/json'
-        )
-        self.assertEqual(res.status_code, 200)
 
-    # def test_get_token_and_verify_token(self):
-    #     res = self.app.post(
-    #             "/api/get_token",
-    #             data=json.dumps(self.default_user),
-    #             content_type='application/json'
-    #     )
+def main():
+  app = TestAPI()
 
-    #     token = json.loads(res.data.decode("utf-8"))["token"]
-    #     self.assertTrue(auth.verify_token(token))
-    #     self.assertEqual(res.status_code, 200)
+  token = app.getToken()
+  app.createTask()
 
-    #     res2 = self.app.post(
-    #             "/api/is_token_valid",
-    #             data=json.dumps({"token": token}),
-    #             content_type='application/json'
-    #     )
+  # app.stop_task(token)
+  
+  # app.get_user(token)
+  # app.get_users_tasks(token)
 
-    #     self.assertTrue(json.loads(res2.data.decode("utf-8")), ["token_is_valid"])
-
-    #     res3 = self.app.post(
-    #             "/api/is_token_valid",
-    #             data=json.dumps({"token": token + "something-else"}),
-    #             content_type='application/json'
-    #     )
-
-    #     self.assertEqual(res3.status_code, 403)
-
-    #     res4 = self.app.post(
-    #             "/api/get_token",
-    #             data=json.dumps(self.default_user2),
-    #             content_type='application/json'
-    #     )
-
-    #     self.assertEqual(res4.status_code, 403)
-
-    # def test_protected_route(self):
-    #     headers = {
-    #         'Authorization': self.token,
-    #     }
-
-    #     bad_headers = {
-    #         'Authorization': self.token + "bad",
-    #     }
-
-    #     response = self.app.get('/api/user', headers=headers)
-    #     self.assertEqual(response.status_code, 200)
-    #     response2 = self.app.get('/api/user')
-    #     self.assertEqual(response2.status_code, 401)
-    #     response3 = self.app.get('/api/user', headers=bad_headers)
-    #     self.assertEqual(response3.status_code, 401)
+if __name__ == '__main__':
+    main() 

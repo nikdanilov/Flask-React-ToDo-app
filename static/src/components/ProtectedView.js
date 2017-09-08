@@ -1,4 +1,12 @@
 import React from 'react';
+import {
+  Table,
+  TableBody,
+  TableHeader,
+  TableHeaderColumn,
+  TableRow,
+  TableRowColumn,
+} from 'material-ui/Table';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actionCreators from '../actions/data';
@@ -29,20 +37,19 @@ export default class ProtectedView extends React.Component {
         this.props.fetchProtectedData(token);
     }
 
-    render() {
-        return (
-            <div>
-                {!this.props.loaded
-                    ? <h1>Loading data...</h1>
-                    :
-                    <div>
-                        <h1>Welcome back,
-                            {this.props.userName}!</h1>
-                        <h1>{this.props.data.data.email}</h1>
-                    </div>
-                }
-            </div>
-        );
+    render() {  
+
+    return (
+        <div>
+            {!this.props.loaded
+                ? <h1>Loading data...</h1>
+                :
+                <div>
+                    <h1>Welcome back,{this.props.userName}!</h1>
+                </div>
+            }
+        </div>
+    );
     }
 }
 

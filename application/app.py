@@ -1,7 +1,9 @@
 from flask import request, render_template, jsonify, url_for, redirect, g
 from .models import User
-from .models import Tasks
+from .models import Task
 from index import app, db
+import json
+import datetime
 from sqlalchemy.exc import IntegrityError
 from .utils.auth import generate_token, requires_auth, verify_token
 
@@ -16,10 +18,17 @@ def any_root_path(path):
     return render_template('index.html')
 
 
-@app.route("/api/user", methods=["GET"])
+@app.route("/api/username", methods=["GET"])
 @requires_auth
 def get_user():
     return jsonify(result=g.current_user)
+
+
+@app.route("/api/users_tasks", methods=["GET"])
+@requires_auth
+def get_users_tasks():
+    r = Task.query.filter_by(user_id=g.current_user["id"]).all()
+    return jsonify(result=[i.serialize for i in r])
 
 
 @app.route("/api/create_user", methods=["POST"])
@@ -43,21 +52,36 @@ def create_user():
         token=generate_token(new_user)
     )
 
-# DEV
+
 @app.route("/api/create_task", methods=["POST"])
 @requires_auth
 def create_task():
     incoming = request.get_json()
-    task = Tasks(
-        user_id = g.user.id,
+    task = Task(
+        user_id = g.current_user["id"],
         name=incoming["name"],
         category=incoming["category"]
     )
     db.session.add(task)
 
-    db.session.commit()
+    try:
+        db.session.commit()
+    except Exception:
+        return jsonify(message=Exception), 500
 
-    return "SUCCESS!"
+    return jsonify(message=incoming["name"] + " started."), 200
+
+@app.route("/api/stop_task", methods=["POST"])
+@requires_auth
+def stop_task():
+    incoming = request.get_json()
+    update = Task.query.filter_by(id=incoming["id"]).update({"dt_finish": datetime.datetime.now()})
+
+    if update: 
+        db.session.commit()
+        return jsonify(message="Task #" + str(incoming["id"]) + " stopped."), 200
+    else:
+        return jsonify(message="Unable to update record."), 500
 
 
 @app.route("/api/get_token", methods=["POST"])
