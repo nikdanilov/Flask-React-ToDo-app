@@ -31,7 +31,7 @@
   "devDependencies": {
     "moment": "^2.18.1",
     "autoprefixer": "6.5.3",
-    "axios": "^0.15.3",
+    "axios": "^0.19.2",
     "babel-core": "^6.4.5",
     "babel-eslint": "^7.1.1",
     "babel-loader": "^6.2.1",
