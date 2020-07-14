@@ -63,4 +63,4 @@ $ npm start
 
 Open your browser to ``` http://localhost:3000 ```
 
-Enjoy! If you have any questions please send me a message to Nikita.Danilov92@gmail.com
+Enjoy! If you have any questions, please feel free to send me a message!
