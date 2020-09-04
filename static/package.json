@@ -79,7 +79,7 @@
     "material-ui": "^0.16.4",
     "mocha": "^3.0.2",
     "morgan": "^1.6.1",
-    "node-sass": "^3.4.2",
+    "node-sass": "^4.14.1",
     "postcss-import": "^9.0.0",
     "postcss-loader": "^1.1.1",
     "q": "^1.4.1",
